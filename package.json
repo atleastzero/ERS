@@ -1,0 +1,8 @@
+{
+  "name": "ERS",
+  "version": "0.0.1",
+  "description": "An Egyptian RatScrew web game using socket.io",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
