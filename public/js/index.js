@@ -5,11 +5,29 @@ $(document).ready(() => {
   '9D', '10D', 'JD', 'QD', 'KD', 'AH', '2H', '3H', '4H', '5H', '6H', '7H',
   '8H', '9H', '10H', 'JH', 'QH', 'KH']
 
-  let currentUser;
+  let currentUser
+  let room = $('#room').val
 
-  const socket = io.connect();
+  const socket = io.connect()
 
-  socket.on('new user', (username) => {
-    $('#players').append(`<div class='player'>${username}</div>`)
+  socket.emit('get players', room)
+
+  $('#setUser').click((e) => {
+    e.preventDefault()
+    currentUser = $('#username').val()
+    if (currentUser.length > 0) {
+      socket.emit('new user', currentUser, room)
+      $('#form').remove()
+    }
+  })
+
+  socket.on('get players', (players, nicknames) => {
+    console.log(players)
+    if (players) {
+      $('#players').empty()
+      players.forEach(player => {
+        $('#players').append(`<div class='player' id='${player}'>${nicknames[player]}</div>`)
+      });
+    }
   })
 })

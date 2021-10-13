@@ -10,10 +10,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 let rooms = {};
-let onlineUsers = {};
+let nicknames = {};
 
 io.on('connection', (socket) => {
-  require('./sockets/game.js')(io, socket, rooms, onlineUsers)
+  require('./sockets/game.js')(io, socket, rooms, nicknames)
 })
 
 //Express View Engine for Handlebars
